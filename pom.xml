@@ -14,6 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.0</spring-boot.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.8.RELEASE</spring-cloud-alibaba.version>
 
         <jwt.version>0.9.1</jwt.version>
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
@@ -21,10 +22,10 @@
     </properties>
 
     <modules>
-        <module>springcloud-consumer-feign</module>
+        <module>springcloud-openfeign-8888</module>
         <module>springcloud-eureka-7001</module>
         <module>springcloud-eureka-7002</module>
-        <module>springcloud-provider-8081</module>
+        <module>springcloud-rbac-8081</module>
         <module>springcloud-gateway-8080</module>
     </modules>
 
@@ -46,6 +47,15 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--SpringCloud Alibaba版本-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
