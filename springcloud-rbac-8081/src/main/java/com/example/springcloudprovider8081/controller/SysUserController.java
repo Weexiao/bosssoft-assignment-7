@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -148,5 +150,34 @@ public class SysUserController {
         List<RouterVO> routerVOList = MenuTreeUtils.makeRouter(collect, 0L);
         // 返回数据
         return Result.ok(routerVOList).message("菜单查询成功");
+    }
+
+    /**
+     * 用户退出登录
+     * @param request
+     * @param response
+     * @return
+     */
+    @PostMapping("/logout")
+    public Result logout(HttpServletRequest request, HttpServletResponse response) {
+        log.info("用户退出登录");
+
+        // 获取token
+        String token = request.getHeader("token");
+        // 如果header中不存在token，则从参数中获取
+        if (ObjectUtils.isEmpty(token)) {
+            token = request.getParameter("token");
+        }
+        // 获取用户相关信息
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            // 清空用户信息
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            // 清空redis里的token
+            String key = "token_" + token;
+            redisService.del(key);
+        }
+        return Result.ok().message("退出登录成功");
     }
 }

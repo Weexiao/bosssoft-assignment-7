@@ -54,7 +54,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/list")
-    public Result list(@RequestParam(value = "userVO", required = false) UserVO userVO) {
+    public Result list(UserVO userVO) {
         log.info("查询用户列表");
 
         if (userVO == null) {
@@ -139,7 +139,7 @@ public class UserController {
      */
     @GetMapping("/getRoleListForAssign")
     // @PreAuthorize("hasAuthority('sys:user:assign')")
-    public Result getRoleListForAssign(@RequestParam(value = "roleVO", required = false) RoleVO roleVO) {
+    public Result getRoleListForAssign(RoleVO roleVO) {
         log.info("获取分配角色列表");
 
         if (roleVO == null) {

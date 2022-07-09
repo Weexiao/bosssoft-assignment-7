@@ -40,7 +40,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/list")
-    public Result findRoleListByUserId(@RequestParam(value = "roleVO", required = false) RoleVO roleVO) {
+    public Result findRoleListByUserId(RoleVO roleVO) {
         log.info("分页查询角色列表");
         if (roleVO == null) {
             roleVO = new RoleVO();
@@ -102,7 +102,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/getAssignPermissionTree")
-    public Result getAssignPermissionTree(@RequestParam("userId") Long userId, @RequestParam("userId") Long roleId) {
+    public Result getAssignPermissionTree(Long userId, Long roleId) {
         log.info("分配权限-查询权限树数据");
         RolePermissionVO rolePermissionVO = permissionService.getAssignPermissionTree(userId, roleId);
         return Result.ok(rolePermissionVO);

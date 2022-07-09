@@ -6,6 +6,7 @@ import com.example.springcloudprovider8081.entity.po.UserPO;
 import com.example.springcloudprovider8081.entity.vo.RoleVO;
 import com.example.springcloudprovider8081.entity.vo.UserVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public interface UserFeignService {
     public Result listAll();
 
     @GetMapping("/user/list")
-    public Result list(@RequestParam(value = "userVO", required = false) UserVO userVO);
+    public Result list(@SpringQueryMap UserVO userVO);
 
     @PostMapping("/user/add")
     // @PreAuthorize("hasAuthority('sys:user:add')")
@@ -33,7 +34,7 @@ public interface UserFeignService {
 
     @GetMapping("/user/getRoleListForAssign")
     // @PreAuthorize("hasAuthority('sys:user:assign')")
-    public Result getRoleListForAssign(@RequestParam(value = "roleVO", required = false) RoleVO roleVO);
+    public Result getRoleListForAssign(@SpringQueryMap RoleVO roleVO);
 
     @GetMapping("/user/getRoleListByUserId/{userId}")
     // @PreAuthorize("hasAuthority('sys:user:assign')")
@@ -48,7 +49,4 @@ public interface UserFeignService {
 
     @PutMapping("/user/updatePassword")
     public Result updatePassword(@RequestBody UserPO userPO);
-
-    @PostMapping("/user/login")
-    public Result login(UserPO userPO);
 }

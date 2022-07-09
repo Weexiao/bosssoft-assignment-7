@@ -4,7 +4,9 @@ package com.example.springcloudprovider8081.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springcloudprovider8081.dao.DepartmentMapper;
+import com.example.springcloudprovider8081.dao.UserMapper;
 import com.example.springcloudprovider8081.entity.po.DepartmentPO;
+import com.example.springcloudprovider8081.entity.po.UserPO;
 import com.example.springcloudprovider8081.entity.vo.DepartmentVO;
 import com.example.springcloudprovider8081.service.DepartmentService;
 import com.example.springcloudprovider8081.utils.DepartmentTreeUtils;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -26,8 +29,8 @@ import java.util.List;
 @Transactional
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, DepartmentPO> implements DepartmentService {
 
-//    @Resource
-//    private UserMapper userMapper;
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 查询部门列表
@@ -41,14 +44,14 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         QueryWrapper<DepartmentPO> queryWrapper = new QueryWrapper<DepartmentPO>();
         // 部门名称
         queryWrapper.like(!ObjectUtils.isEmpty(departmentVO.getDepartmentName()),
-                "depatment_name",
+                "department_name",
                 departmentVO.getDepartmentName()
         );
         // 排序
         queryWrapper.orderByAsc("order_num");
         // 查询部门列表
         List<DepartmentPO> list = baseMapper.selectList(queryWrapper);
-        // 生成部门树
+        // 生成部门树，只能生成顶级部门的树
         return DepartmentTreeUtils.makeDepartmentTree(list, 0L);
     }
 
@@ -101,10 +104,9 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     @Override
     public boolean hasUserOfDepartment(Long id) {
         // 创建条件查询构造器对象
-//        QueryWrapper<UserPO> queryWrapper = new QueryWrapper<UserPO>();
-//        queryWrapper.eq("department_id", id);     // 判断部门下是否有用户
-//        return userMapper.selectCount(queryWrapper) > 0;
-        return true;
+        QueryWrapper<UserPO> queryWrapper = new QueryWrapper<UserPO>();
+        queryWrapper.eq("department_id", id);     // 判断部门下是否有用户
+        return userMapper.selectCount(queryWrapper) > 0;
     }
 
     /**

@@ -34,7 +34,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/list")
-    public Result getMenuList(@RequestParam(value = "permissionVO", required = false) PermissionVO permissionVO){
+    public Result getMenuList(PermissionVO permissionVO){
         log.info("查询菜单列表");
         if (permissionVO == null) {
             permissionVO = new PermissionVO();

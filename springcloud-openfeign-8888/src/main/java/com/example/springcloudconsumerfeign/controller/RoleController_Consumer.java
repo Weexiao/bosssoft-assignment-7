@@ -7,6 +7,7 @@ import com.example.springcloudprovider8081.entity.po.RolePO;
 import com.example.springcloudprovider8081.entity.vo.RoleVO;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ public class RoleController_Consumer {
 
     @GetMapping("/role/list")
     @HystrixCommand
-    public Result findRoleListByUserId(@RequestParam(value = "roleVO", required = false) RoleVO roleVO){
+    public Result findRoleListByUserId(@SpringQueryMap RoleVO roleVO){
         return roleFeignService.findRoleListByUserId(roleVO);
     }
 
@@ -45,7 +46,7 @@ public class RoleController_Consumer {
 
     @GetMapping("/role/getAssignPermissionTree")
     @HystrixCommand
-    public Result getAssignPermissionTree(@RequestParam("userId") Long userId, @RequestParam("roleId") Long roleId){
+    public Result getAssignPermissionTree(Long userId, Long roleId){
         return roleFeignService.getAssignPermissionTree(userId, roleId);
     }
 

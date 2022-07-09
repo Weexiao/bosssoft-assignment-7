@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/sysUserConsumer")
@@ -29,5 +30,10 @@ public class SysUserController_Consumer {
     @GetMapping("/sysUser/getMenuList")
     public Result getMenuList(){
         return sysUserFeignService.getMenuList();
+    }
+
+    @PostMapping("/sysUser/logout")
+    public Result logout(){
+        return sysUserFeignService.logout();
     }
 }

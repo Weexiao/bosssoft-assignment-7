@@ -4,6 +4,7 @@ import com.example.springcloudprovider8081.common.Result;
 import com.example.springcloudprovider8081.entity.po.PermissionPO;
 import com.example.springcloudprovider8081.entity.vo.PermissionVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(value = "MICROSERVICECLOUDPROVIDER", contextId = "permissionFeignService")
 public interface PermissionFeignService {
     @GetMapping("/permission/list")
-    public Result getMenuList(@RequestParam(value = "permissionVO", required = false) PermissionVO permissionVO);
+    public Result getMenuList(@SpringQueryMap PermissionVO permissionVO);
 
     @GetMapping("/permission/parent/list")
     public Result getParentList();

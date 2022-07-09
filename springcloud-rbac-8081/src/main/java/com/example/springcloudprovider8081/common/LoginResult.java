@@ -12,7 +12,7 @@ public class LoginResult {
     // 用户编号
     private Long userId;
     // 状态码
-    private int status;
+    private int code;
     // token令牌
     private String token;
     // token过期时间

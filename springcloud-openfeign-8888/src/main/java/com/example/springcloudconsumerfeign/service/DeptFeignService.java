@@ -4,6 +4,7 @@ import com.example.springcloudprovider8081.common.Result;
 import com.example.springcloudprovider8081.entity.po.DepartmentPO;
 import com.example.springcloudprovider8081.entity.vo.DepartmentVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public interface DeptFeignService {
 
     // 对应服务提供者（8001、8002、8003）Controller 中定义的方法
     @GetMapping("/department/list")
-    public Result findDepartmentList(@RequestParam(value = "departmentVO", required = false) DepartmentVO departmentVO);
+    public Result findDepartmentList(@SpringQueryMap DepartmentVO departmentVO);
 
     @GetMapping("/department/parent/list")
     public Result findParentDepartment();

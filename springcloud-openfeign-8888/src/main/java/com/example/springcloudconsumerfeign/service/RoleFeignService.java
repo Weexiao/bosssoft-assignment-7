@@ -5,6 +5,7 @@ import com.example.springcloudprovider8081.entity.dto.RolePermissionDTO;
 import com.example.springcloudprovider8081.entity.po.RolePO;
 import com.example.springcloudprovider8081.entity.vo.RoleVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(value = "MICROSERVICECLOUDPROVIDER", contextId = "roleFeignService")
 public interface RoleFeignService {
     @GetMapping("/role/list")
-    public Result findRoleListByUserId(@RequestParam(value = "roleVO", required = false) RoleVO roleVO);
+    public Result findRoleListByUserId(@SpringQueryMap RoleVO roleVO);
 
     @PostMapping("/role/add")
     public Result add(@RequestBody RolePO rolePO);

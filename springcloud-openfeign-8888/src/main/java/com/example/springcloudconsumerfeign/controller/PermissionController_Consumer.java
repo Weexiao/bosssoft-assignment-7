@@ -6,6 +6,7 @@ import com.example.springcloudprovider8081.entity.po.PermissionPO;
 import com.example.springcloudprovider8081.entity.vo.PermissionVO;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,7 +21,7 @@ public class PermissionController_Consumer {
 
     @GetMapping("/permission/list")
     @HystrixCommand
-    public Result getMenuList(@RequestParam(value = "permissionVO", required = false) PermissionVO permissionVO){
+    public Result getMenuList(@SpringQueryMap PermissionVO permissionVO){
         return permissionFeignService.getMenuList(permissionVO);
     }
 

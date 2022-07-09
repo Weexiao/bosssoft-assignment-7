@@ -37,8 +37,9 @@ public class DepartmentController {
      * @return
      */
     @GetMapping("/list")
-    public Result findDepartmentList(@RequestParam(value = "departmentVO", required = false) DepartmentVO departmentVO) {
+    public Result findDepartmentList(DepartmentVO departmentVO) {
         log.info("获取部门列表");
+        System.out.println(departmentVO);
         if (departmentVO == null) {
             departmentVO = new DepartmentVO();
         }

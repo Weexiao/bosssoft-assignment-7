@@ -8,6 +8,7 @@ import com.example.springcloudprovider8081.entity.vo.RoleVO;
 import com.example.springcloudprovider8081.entity.vo.UserVO;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,7 +28,7 @@ public class UserController_Consumer {
 
     @GetMapping("/user/list")
     @HystrixCommand
-    public Result list(@RequestParam(value = "userVO", required = false) UserVO userVO){
+    public Result list(@SpringQueryMap UserVO userVO){
         return userFeignService.list(userVO);
     }
 
@@ -55,7 +56,7 @@ public class UserController_Consumer {
     @GetMapping("/user/getRoleListForAssign")
     @HystrixCommand
     // @PreAuthorize("hasAuthority('sys:user:assign')")
-    public Result getRoleListForAssign(@RequestParam(value = "roleVO", required = false) RoleVO roleVO){
+    public Result getRoleListForAssign(@SpringQueryMap RoleVO roleVO){
         return userFeignService.getRoleListForAssign(roleVO);
     }
 
@@ -81,11 +82,6 @@ public class UserController_Consumer {
     @PutMapping("/user/updatePassword")
     public Result updatePassword(@RequestBody UserPO userPO){
         return userFeignService.updatePassword(userPO);
-    }
-
-    @PostMapping("/user/login")
-    public Result login(UserPO userPO){
-        return userFeignService.login(userPO);
     }
 
     public Result user_Global_FallbackMethod(){

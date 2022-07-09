@@ -6,6 +6,7 @@ import com.example.springcloudprovider8081.entity.po.DepartmentPO;
 import com.example.springcloudprovider8081.entity.vo.DepartmentVO;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,7 +20,7 @@ public class DepartmentController_Consumer {
 
     @GetMapping("/department/list")
     @HystrixCommand
-    public Result findDepartmentList(@RequestParam(value = "departmentVO", required = false) DepartmentVO departmentVO){
+    public Result findDepartmentList(@SpringQueryMap DepartmentVO departmentVO){
         return deptFeignService.findDepartmentList(departmentVO);
     }
 
@@ -64,6 +65,6 @@ public class DepartmentController_Consumer {
      * @DefaultProperties(defaultFallback = "dept_Global_FallbackMethod") 类上注解，请求方法上使用 @HystrixCommand 注解
      */
     public Result dept_Global_FallbackMethod() {
-        return Result.error().message("友情提醒您，运行出错或服务端系统繁忙，请稍后再试！（客户端全局回退方法触发,）");
+        return Result.error().message("友情提醒您，运行出错或服务端系统繁忙，请稍后再试！（客户端全局回退方法触发）");
     }
 }
