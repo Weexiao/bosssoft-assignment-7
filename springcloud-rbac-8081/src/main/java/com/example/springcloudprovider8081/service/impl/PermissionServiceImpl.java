@@ -85,7 +85,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         // 构造顶级菜单信息，如果数据库中无数据，则显示顶级菜单信息
         PermissionPO permissionPO = new PermissionPO();
         permissionPO.setId(0L);
-        permissionPO.setName("顶级菜单");
+        permissionPO.setLabel("顶级菜单");
         permissionPO.setParentId(-1L);
 
         // 将顶级菜单添加到菜单列表中
