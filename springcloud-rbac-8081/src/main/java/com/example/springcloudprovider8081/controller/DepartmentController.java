@@ -7,6 +7,7 @@ import com.example.springcloudprovider8081.entity.vo.DepartmentVO;
 import com.example.springcloudprovider8081.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -62,7 +63,7 @@ public class DepartmentController {
      * @return
      */
     @PostMapping("/add")
-    // @PreAuthorize("hasAuthority('sys:department:add')")
+    @PreAuthorize("hasAuthority('sys:department:add')")
     public Result addDepartment(@RequestBody DepartmentPO departmentPO) {
         log.info("添加部门");
         if (departmentService.save(departmentPO)) {
@@ -78,7 +79,7 @@ public class DepartmentController {
      * @return
      */
     @PutMapping("/update")
-    // @PreAuthorize("hasAuthority('sys:department:edit')")
+    @PreAuthorize("hasAuthority('sys:department:edit')")
     public Result updateDepartment(@RequestBody DepartmentPO departmentPO) {
         log.info("修改部门");
         if (departmentService.updateById(departmentPO)) {
@@ -94,7 +95,7 @@ public class DepartmentController {
      * @return
      */
     @GetMapping("/check/{id}")
-    // @PreAuthorize("hasAuthority('sys:department:delete')")
+    @PreAuthorize("hasAuthority('sys:department:delete')")
     public Result hasChildOfDepartment(@PathVariable Long id) {
         log.info("查询某个部门下是否有子部门");
         // 查询部门下是否有子部门
@@ -114,7 +115,7 @@ public class DepartmentController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    // @PreAuthorize("hasAuthority('sys:department:delete')")
+    @PreAuthorize("hasAuthority('sys:department:delete')")
     public Result deleteDepartment(@PathVariable Long id) {
         log.info("删除部门");
         if (departmentService.removeById(id)) {

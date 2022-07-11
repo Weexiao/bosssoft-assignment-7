@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/userConsumer")
-@DefaultProperties(defaultFallback = "user_Global_Fallback")
+@DefaultProperties(defaultFallback = "user_Global_FallbackMethod")
 public class UserController_Consumer {
     @Resource
     private UserFeignService userFeignService;

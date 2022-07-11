@@ -56,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         // 部门编号
         queryWrapper.eq(
                 !ObjectUtils.isEmpty(userVO.getDepartmentId()),
-                "dept_id", userVO.getDepartmentId()
+                "department_id", userVO.getDepartmentId()
         );
         // 用户名
         queryWrapper.like(

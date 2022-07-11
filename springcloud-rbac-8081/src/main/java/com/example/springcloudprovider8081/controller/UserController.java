@@ -12,6 +12,7 @@ import com.example.springcloudprovider8081.entity.vo.UserVO;
 import com.example.springcloudprovider8081.service.RoleService;
 import com.example.springcloudprovider8081.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,7 +74,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/add")
-    // @PreAuthorize("hasAuthority('sys:user:add')")
+    @PreAuthorize("hasAuthority('sys:user:add')")
     public Result add(@RequestBody UserPO userPO) {
         log.info("添加用户");
 
@@ -98,7 +99,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    // @PreAuthorize("hasAuthority('sys:user:edit')")
+    @PreAuthorize("hasAuthority('sys:user:edit')")
     public Result update(@RequestBody UserPO userPO) {
         log.info("修改用户");
 
@@ -121,7 +122,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/delete/{userId}")
-    // @PreAuthorize("hasAuthority('sys:user:delete')")
+    @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@PathVariable Long userId) {
         log.info("删除用户");
 
@@ -138,7 +139,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getRoleListForAssign")
-    // @PreAuthorize("hasAuthority('sys:user:assign')")
+    @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result getRoleListForAssign(RoleVO roleVO) {
         log.info("获取分配角色列表");
 
@@ -159,7 +160,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getRoleListByUserId/{userId}")
-    // @PreAuthorize("hasAuthority('sys:user:assign')")
+    @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result getRoleListByUserId(@PathVariable Long userId) {
         log.info("根据用户ID查询该用户拥有的角色列表");
 
@@ -173,7 +174,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/saveUserRole")
-    // @PreAuthorize("hasAuthority('sys:user:assign')")
+    @PreAuthorize("hasAuthority('sys:user:assign')")
     public Result saveUserRole(@RequestBody UserRoleDTO userRoleDTO) {
         log.info("分配角色");
 

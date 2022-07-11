@@ -6,6 +6,7 @@ import com.example.springcloudprovider8081.entity.po.PermissionPO;
 import com.example.springcloudprovider8081.entity.vo.PermissionVO;
 import com.example.springcloudprovider8081.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -75,7 +76,7 @@ public class PermissionController {
      * @return
      */
     @PostMapping("/add")
-    // @PreAuthorize("hasAuthority('sys:menu:add')")
+    @PreAuthorize("hasAuthority('sys:menu:add')")
     public Result add(@RequestBody PermissionPO permissionPO){
         log.info("添加菜单");
         if (permissionService.save(permissionPO)){
@@ -90,7 +91,7 @@ public class PermissionController {
      * @return
      */
     @PutMapping("/update")
-    // @PreAuthorize("hasAuthority('sys:menu:edit')")
+    @PreAuthorize("hasAuthority('sys:menu:edit')")
     public Result update(@RequestBody PermissionPO permissionPO){
         log.info("修改菜单");
         if (permissionService.updateById(permissionPO)){
@@ -105,7 +106,7 @@ public class PermissionController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
-    // @PreAuthorize("hasAuthority('sys:menu:delete')")
+    @PreAuthorize("hasAuthority('sys:menu:delete')")
     public Result delete(@PathVariable Long id){
         log.info("删除菜单");
         if (permissionService.removeById(id)){
@@ -120,7 +121,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/check/{id}")
-    // @PreAuthorize("hasAuthority('sys:menu:delete')")
+    @PreAuthorize("hasAuthority('sys:menu:delete')")
     public Result check(@PathVariable Long id){
         log.info("检查菜单下是否有子菜单");
         if (permissionService.hasChildrenOfPermission(id)){

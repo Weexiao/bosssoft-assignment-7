@@ -11,6 +11,7 @@ import com.example.springcloudprovider8081.entity.vo.RoleVO;
 import com.example.springcloudprovider8081.service.PermissionService;
 import com.example.springcloudprovider8081.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -59,6 +60,7 @@ public class RoleController {
      * @return
      */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('sys:role:add')")
     public Result add(@RequestBody RolePO rolePO) {
         log.info("添加角色");
         if (roleService.save(rolePO)) {
@@ -73,6 +75,7 @@ public class RoleController {
      * @return
      */
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('sys:role:edit')")
     public Result update(@RequestBody RolePO rolePO) {
         log.info("修改角色");
         if (roleService.updateById(rolePO)) {
@@ -87,6 +90,7 @@ public class RoleController {
      * @return
      */
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     public Result delete(@PathVariable Long id) {
         log.info("删除角色");
         if (roleService.deleteRoleById(id)) {
@@ -114,6 +118,7 @@ public class RoleController {
      * @return
      */
     @PostMapping("/saveRolePermission")
+    @PreAuthorize("hasAuthority('sys:role:edit')")
     public Result saveRolePermission(@RequestBody RolePermissionDTO rolePermissionDTO) {
         log.info("分配权限-保存权限");
         if (roleService.saveRolePermission(rolePermissionDTO.getRoleId(), rolePermissionDTO.getPermissionIds())) {
@@ -128,6 +133,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/check/{roleId}")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     public Result check(@PathVariable Long roleId) {
         log.info("检查该角色是否被分配");
         if (roleService.getRoleCount(roleId)) {
