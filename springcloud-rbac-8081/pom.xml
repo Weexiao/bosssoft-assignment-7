@@ -151,6 +151,7 @@
                 <version>2.3.7.RELEASE</version>
                 <configuration>
                     <mainClass>com.example.springcloudprovider8081.SpringcloudProvider8081Application</mainClass>
+                    <classifier>springcloud-rbac-exec-8081</classifier>
                 </configuration>
                 <executions>
                     <execution>
